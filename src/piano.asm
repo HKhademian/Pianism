@@ -13,8 +13,8 @@ section .text
 	skip EQU 100 ; ms
 
 section .code
-%macro piano.note 6
-	;;; piano.note ( note<=eax, dur, cond, done, symb, log )
+%macro piano_note 6
+	;;; piano_note ( note<=eax, dur, cond, done, symb, log )
 	%define note	%1
 	%define dur		%2
 	%define cond	%3
@@ -169,27 +169,28 @@ section .code
 	%undef log
 %endmacro
 
-piano.string:
+piano_string:
 	enter 0,0
 	pushad
 	mov esi, eax
 
 	mov ebx, base_dur
-	.cond:
+	.read:
 		xor eax, eax
 		mov al, [esi]
 		inc esi
 		cmp al, NULL
 		je .done
 	.play:
-		piano.note eax, ebx, .cond, .done, 1, 0
+		piano_note eax, ebx, .read, .done, 1, 0
 	.done:
 
 	popad
 	leave
 	ret
 
-piano.keyboard:
+
+piano_keyboard:
 	enter 0,0
 	pushad
 
@@ -200,11 +201,10 @@ piano.keyboard:
 	console.setMode
 
 	mov ebx, base_dur
-	.cond:
-		console.read input, 5
-		movzx eax, byte [input]
+	.read:
+		getch
 	.play:
-		piano.note eax, ebx, .cond, .done, 1, 0
+		piano_note eax, ebx, .read, .done, 1, 0
 	.done:
 
 	; piano mode OFF

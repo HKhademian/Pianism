@@ -3,27 +3,27 @@
 section .text
 	DB 'A4', 0, 0, 0, 0, 0, 0;, 0, 0
 	note_names:
-		db 0xe2, 0x99, 0xa9, 0
-		db 0xe2, 0x99, 0xaa, 0
-		db 0xe2, 0x99, 0xab, 0
-		db 0xe2, 0x99, 0xac, 0
-		db 0xe2, 0x99, 0xad, 0
-		db 0xe2, 0x99, 0xae, 0
-		db 0xe2, 0x99, 0xaf, 0
-		db 'A♩', 0, 0
-		db 'B♪', 0, 0
-		db 'C♫', 0, 0
-		db 'D♬', 0, 0
-		db 'E♭', 0, 0
-		db 'F♮', 0, 0
-		db 'G♯', 0, 0
-		; DB 'A4', 0, 0, 0, 0, 0, 0;, 0, 0
-		; DB 'B4', 0, 0, 0, 0, 0, 0;, 0, 0
-		; DB 'C4', 0, 0, 0, 0, 0, 0;, 0, 0
-		; DB 'D4', 0, 0, 0, 0, 0, 0;, 0, 0
-		; DB 'E4', 0, 0, 0, 0, 0, 0;, 0, 0
-		; DB 'F4', 0, 0, 0, 0, 0, 0;, 0, 0
-		; DB 'G4', 0, 0, 0, 0, 0, 0;, 0, 0
+		; db 0xe2, 0x99, 0xa9, 0
+		; db 0xe2, 0x99, 0xaa, 0
+		; db 0xe2, 0x99, 0xab, 0
+		; db 0xe2, 0x99, 0xac, 0
+		; db 0xe2, 0x99, 0xad, 0
+		; db 0xe2, 0x99, 0xae, 0
+		; db 0xe2, 0x99, 0xaf, 0
+		; db 'A♩', 0, 0
+		; db 'B♪', 0, 0
+		; db 'C♫', 0, 0
+		; db 'D♬', 0, 0
+		; db 'E♭', 0, 0
+		; db 'F♮', 0, 0
+		; db 'G♯', 0, 0
+		DB 'A4', 0, 0
+		DB 'B4', 0, 0
+		DB 'C4', 0, 0
+		DB 'D4', 0, 0
+		DB 'E4', 0, 0
+		DB 'F4', 0, 0
+		DB 'G4', 0, 0
 
 	DD 0			;-1: NO
 	notes0:
@@ -34,7 +34,7 @@ section .text
 		DD 21		; 4: E
 		DD 22		; 5: F
 		DD 24		; 6: G
-		
+
 	DD 0			;-1: NO
 	notes1:
 		DD 55		; 0: A
@@ -44,7 +44,7 @@ section .text
 		DD 41		; 4: E
 		DD 44		; 5: F
 		DD 49		; 6: G
-		
+
 	dd 0			;-1: NO
 	notes2:
 		DD 110	; 0: A
@@ -54,7 +54,7 @@ section .text
 		DD 82		; 4: E
 		DD 87		; 5: F
 		DD 99		; 6: G
-		
+
 	DD 0			;-1: NO
 	notes3:
 		DD 220	; 0: A3
@@ -64,7 +64,7 @@ section .text
 		DD 165	; 4: E3
 		DD 177	; 5: F3
 		DD 196	; 6: G3
-			
+
 	DD 0			;-1: NO
 	notes4:
 		DD 440	; 0: A4
@@ -74,7 +74,7 @@ section .text
 		DD 330	; 4: E4
 		DD 349	; 5: F4
 		DD 392	; 6: G4
-	
+
 	DD 0			;-1: NO
 	notes5:
 		DD 880	; 0: A5
