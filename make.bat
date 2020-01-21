@@ -16,7 +16,7 @@ REM parse asm app to obj
 IF EXIST "%outdir%\%APP%.obj" (
 	
 	REM link dependecies to app
-	"%bindir%\GoLink.exe" /console /entry _start /ni "%outdir%\%APP%.obj" kernel32.dll ucrtbase.dll 
+	"%bindir%\GoLink.exe" /console /entry _start /ni "%outdir%\%APP%.obj" "%bindir%\libw.obj" kernel32.dll ucrtbase.dll 
 
 	REM [UN]COMMENT TO delete .obj file
 	DEL "%outdir%\%APP%.obj"

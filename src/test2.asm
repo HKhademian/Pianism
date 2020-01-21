@@ -25,6 +25,6 @@ reglog
 	; beep 440, 100
 	; sleep 100
 	; loop play
-	
+
 	leave
 	ret
