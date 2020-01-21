@@ -3,13 +3,18 @@
 %include "lib.asm"
 %include "core.asm"
 
+%macro putcstr 1-*
+	defstr %%_msg, %{1:-1}
+	putstr %%_msg, %%_msg_len
+%endmacro
+
 ;;; defstr(lable, text)
 ;;; lable:			DB text
 ;;; lable_len:	EQU $-lable
-%macro defstr 2
+%macro defstr 2-*
 	jmp %%_skip
-	%1			DB  %2
-	%1_len	EQU $-%1
+	%1			DB  %{2:-1}, NULL
+	%1_len	EQU $-%1-1
 	%%_skip:
 %endmacro
 
@@ -26,7 +31,7 @@
 
 %macro putstr 1
 	pushad
-	mov edi, %1
+	lea edi, [%1]
 	cmp edi, NULL	; if buffer==NULL then goto skip
 	je %%_skip
 	mov esi, edi
@@ -42,11 +47,6 @@
 	putstr edi, esi
 	%%_skip:
 	popad
-%endmacro
-
-%macro putcstr 1
-	defstr %%_msg, %1
-	putstr %%_msg, %%_msg_len
 %endmacro
 
 %macro puti 1
@@ -106,7 +106,7 @@
 	regloga
 	putstr CTAB, 2
 	reglogf
-	putstr CRLF, 2
+	putcstr CRLF
 %endmacro
 
 
@@ -118,11 +118,6 @@ section .bss
 	util_buffer2 resb 25
 
 section .text
-	CRLF db CR, LF, NULL
-	CTAB db TAB, NULL
-	CSPC db SPC, NULL
-	CDOT db DOT, NULL
-
 	MSG_ESP db "ESP: ", NULL
 	MSG_EBP db "EBP: ", NULL
 	MSG_EAX db "EAX: ", NULL

@@ -17,6 +17,12 @@ section .text
 	TAB				EQU '	'
 	SPC				EQU ' '
 	DOT				EQU '.'
+
+	%define CRLF CR,LF
+
+	CTAB db TAB, NULL
+	CSPC db SPC, NULL
+	CDOT db DOT, NULL
 	CMD_CLS		DB  'cls', NULL
 	CMD_PAUSE	DB  'pause', NULL
 section .code

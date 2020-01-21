@@ -49,33 +49,36 @@ section .code
 	je %%_dur_half
 
 	;; Special Commands
-	; spave: hold
+	; space: hold
 	cmp note, ' '
 	je %%_hold
-	; ~: TODO
-	cmp note, '~'
-	je %%_cmd_todo
-	; !: TODO
-	cmp note, '!'
-	je %%_cmd_todo
-	; @: TODO
-	cmp note, '@'
-	je %%_cmd_todo
-	; $: TODO
-	cmp note, '@'
-	je %%_cmd_todo
-	; %: TODO
-	cmp note, '@'
-	je %%_cmd_todo
-	; ^: TODO
-	cmp note, '@'
-	je %%_cmd_todo
-	; &: TODO
-	cmp note, '@'
-	je %%_cmd_todo
-	; =: TODO
-	cmp note, '@'
-	je %%_cmd_todo
+	; ; .: TODO
+	; cmp note, '.'
+	; je %%_hold
+	; ; ~: TODO
+	; cmp note, '~'
+	; je %%_cmd_todo
+	; ; !: TODO
+	; cmp note, '!'
+	; je %%_cmd_todo
+	; ; @: TODO
+	; cmp note, '@'
+	; je %%_cmd_todo
+	; ; $: TODO
+	; cmp note, '$'
+	; je %%_cmd_todo
+	; ; %: TODO
+	; cmp note, '%'
+	; je %%_cmd_todo
+	; ; ^: TODO
+	; cmp note, '^'
+	; je %%_cmd_todo
+	; ; &: TODO
+	; cmp note, '&'
+	; je %%_cmd_todo
+	; ; =: TODO
+	; cmp note, '='
+	; je %%_cmd_todo
 
 	; Numeral commands
 	cmp note, 0

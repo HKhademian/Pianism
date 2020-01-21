@@ -6,12 +6,13 @@ global file.read
 global file.write
 global file.GetConsoleHandle
 
-extern _GetStdHandle@4, GetStdHandle
+extern GetStdHandle
 extern CreateFileA
 extern CloseHandle
-extern _WriteFile@20, WriteFile
-extern _ReadFile@20, ReadFile
+extern WriteFile
+extern ReadFile
 extern SetFilePointer
+extern FindFirstFileA
 
 FILE_GENERIC_READ 		EQU 0x80_00_00_00 ;1<<30
 FILE_GENERIC_WRITE 		EQU 0x40_00_00_00 ;1<<29
@@ -124,8 +125,8 @@ section .code
 %endmacro
 
 ;;; file.seek( hFile, dist, mode )
+;;; return readed bytes in eax
 %macro file.seek 3
-	;;; return readed bytes in eax
 	enter 0,0
 	push ecx ; changed in CreateFileA
 	push edx ; changed in CreateFileA
@@ -146,8 +147,8 @@ section .code
 %endmacro
 
 ;;; file.GetStdHandle( mode )
+;;; return handler in eax
 %macro file.GetStdHandle 1
-	;;; return handler in eax
 	; hStdOut = GetStdHandle( mode )
 	push	DWORD %1
 	call	GetStdHandle
@@ -156,4 +157,10 @@ section .code
 %define file.GetStdOutHandle file.GetStdHandle(-11)
 %define file.GetStdErrHandle file.GetStdHandle(-12)
 
+%macro file.FindFirstFile 2
+	; handle = FindFirstFile ( path, &data )
+	push	DWORD %2
+	push	DWORD %1
+	call	FindFirstFileA
+%endmacro
 %endif
