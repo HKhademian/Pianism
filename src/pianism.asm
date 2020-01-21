@@ -6,6 +6,7 @@
 global _start
 
 section .data
+	%define APP_NAME "Pianism"
 	%define SONGS_BASE_PATH "D:\Media\University\981Assembly\Pianism\songs\0.song"
 	file1 dd 0
 	defstr delSongCmd, 'DEL "', SONGS_BASE_PATH, '"'
@@ -22,7 +23,7 @@ showMenu:
 	putstr MSG_MENU
 	ret
 	MSG_MENU:
-		db "---| Pianism |---", LF,
+		db "---| ", APP_NAME, " |---", LF,
 		db "1) Play free", LF,
 		db "2) Play a save", LF,
 		db "3) Play a file", LF,
@@ -169,17 +170,17 @@ showHelp:
 	getch
 	ret
 	MSG_HELP:
-		DB "TIME is how long does an action takes to pass to next action", LF
-		DB "1 time UNIT is 250ms", LF
-		DB "While in free play:", LF
-		DB "	press `A`,`B`,`C`,`D`,`E`,`F` keys to play note by TIME miliseconds", LF
-		DB "	press ` ` to hold instead of play", LF
-		DB "	press `+` to increase time by 1 unit", LF
-		DB "	press `-` to decrease time by 1 unit", LF
-		DB "	press `*` to double time", LF
-		DB "	press `/` to half time", LF
-		DB "	press `x` to end the play", LF
-		DB "Press any key to continue", LF
+		DB "TIME is how long does an action takes to pass to next action", CRLF
+		DB "1 time UNIT is 250ms", CRLF
+		DB "While in free play:", CRLF
+		DB "	press `A`,`B`,`C`,`D`,`E`,`F` keys to play note by TIME miliseconds", CRLF
+		DB "	press ` ` to hold instead of play", CRLF
+		DB "	press `+` to increase time by 1 unit", CRLF
+		DB "	press `-` to decrease time by 1 unit", CRLF
+		DB "	press `*` to double time", CRLF
+		DB "	press `/` to half time", CRLF
+		DB "	press `x` to end the play", CRLF
+		DB "Press any key to continue ...", CRLF
 		DB NULL
 
 
@@ -188,8 +189,15 @@ showAbout:
 	getch
 	ret
 	MSG_ABOUT:
-		DB "Created by Hossain Khademian 2020", LF
-		DB "Press any key to continue", LF
+		DB APP_NAME, " v0.1", CRLF
+		DB "final project for 'Machine Language' by 'Ashkan Sami, Ph.D'", CRLF
+		DB "Developed by Hossain Khademian Fall-2020", CRLF
+		DB "Links: ", CRLF
+		DB "Prof.: https://shirazu.ac.ir/faculty/home/sami/en", CRLF
+		DB "Dev. Github: https://github.com/HKhademian/", CRLF
+		DB "Dev. Github: https://github.com/HossainKhademian/", CRLF
+		DB "Mail: hco@post.com", CRLF
+		DB "Press any key to continue ...", CRLF
 		DB NULL
 
 _start:
@@ -201,7 +209,7 @@ _start:
 		sub al, '0'
 		jb .menu
 		je .menu_end
-		cmp al, 4
+		cmp al, 5
 		jg .menu
 		mov ebx, [ MENU_JMP + eax*4 ]
 		cls

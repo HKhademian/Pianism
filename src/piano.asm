@@ -197,6 +197,8 @@ piano_keyboard:
 	enter 0,0
 	pushad
 
+	mov edi, eax
+
 	; piano mode ON
 	console.getMode
 	and eax, ~CONSOLE_EN_ECHO_INPUT
@@ -206,6 +208,8 @@ piano_keyboard:
 	mov ebx, base_dur
 	.read:
 		getch
+		mov [edi], al
+		inc edi
 	.play:
 		piano_note eax, ebx, .read, .done, 1, 0
 	.done:
@@ -219,4 +223,7 @@ piano_keyboard:
 	popad
 	leave
 	ret
+	%undef buf
+
+
 %endif
