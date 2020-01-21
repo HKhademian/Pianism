@@ -11,19 +11,21 @@ REM go to src dir
 CD /D %srcdir%
 
 REM parse asm app to obj
+DEL "%outdir%\%APP%.obj" >nul 2>&1
 "%bindir%\nasm.exe" -f win32 "%srcdir%\%APP%.asm" -o "%outdir%\%APP%.obj"
 
 IF EXIST "%outdir%\%APP%.obj" (
-	
+
 	REM link dependecies to app
-	"%bindir%\GoLink.exe" /console /entry _start /ni "%outdir%\%APP%.obj" "%bindir%\libw.obj" kernel32.dll ucrtbase.dll 
+	DEL "%outdir%\%APP%.exe" >nul 2>&1
+	"%bindir%\GoLink.exe" /console /entry _start /ni "%outdir%\%APP%.obj" "%bindir%\libw.obj" kernel32.dll ucrtbase.dll
 
 	REM [UN]COMMENT TO delete .obj file
-	DEL "%outdir%\%APP%.obj"
+	REM DEL "%outdir%\%APP%.obj"
 
 	REM run the app
 	"%outdir%\%APP%.exe"
-	
+
 	REM [UN]COMMENT TO delete exe file
 	REM DEL "%outdir%\%APP%.exe"
 )
