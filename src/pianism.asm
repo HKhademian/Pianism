@@ -7,7 +7,7 @@ global _start
 
 section .data
 	%define APP_NAME "Pianism"
-	%define SONGS_BASE_PATH "D:\Media\University\981Assembly\Pianism\songs\0.song"
+	%define SONGS_BASE_PATH "..\songs\0.song"
 	file1 dd 0
 	defstr delSongCmd, 'DEL "', SONGS_BASE_PATH, '"'
 	defstr songPath, SONGS_BASE_PATH
