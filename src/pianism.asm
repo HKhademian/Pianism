@@ -13,40 +13,75 @@ section .bss
 	buffer resb 1024
 
 section .code
-_start:
-	enter 4,0
+showMenu:
+	cls
+	putstr MSG_MENU
+	ret
+	MSG_MENU:
+		db "---| Pianism |---", LF,
+		db "1) Play a file", LF,
+		db "2) Play free", LF,
+		db "3) Show Help", LF,
+		db "4) Show About", LF,
+		db "0) Exit", LF,
+		db "-- Please choose: ", NULL
 
-	putcstr "Enter file path: "
-	fgets buffer, 1024
-	putcstr `Open:\n`
-	file.open buffer, FILE_OPEN_ALWAYS
-	mov [file1], EAX
-	file.read [file1], buffer, 100
-	file.close [file1]
-	mov eax, buffer
-	call piano.string
-	leave
+playFile:
+	pause
 	ret
 
-	;call piano.keyboard
-	;leave
-	;ret
+playFree:
+	call pianoKeyboard
+	ret
 
-	;defstr sample1, `EeE  EEE  EGCD*E   FFF   FFx  EE   EE   EDDED   |G     EEE  EEE  EGC  DE  FFFF FEEEE GG FD C\0`
-	;defstr sample1, `EeE  EEE  EGCD Ex\0`
-	;defstr sample1, `AAA   AA   A   A A   A A A\0`
-	;defstr sample1, `G G A G C B\0`
-	;defstr sample1, `A B C D E F G\0`
-	;mov eax, sample1
-	;call piano.string
-	;leave
-	;ret
+showHelp:
+	putstr MSG_HELP
+	getch
+	ret
+	MSG_HELP:
+		DB "TIME is how long does an action takes to pass to next action"
+		DB "1 time UNIT is 250ms", LF
+		DB "press `A`,`B`,`C`,`D`,`E`,`F` keys to play note by TIME miliseconds", LF
+		DB "press ` ` to hold instead of play", LF
+		DB "press `+` to increase time by 1 unit", LF
+		DB "press `-` to decrease time by 1 unit", LF
+		DB "press `*` to double time", LF
+		DB "press `/` to half time", LF
+		DB "press `x` to end the play", LF
+		DB "Press any key to return", LF
+		DB NULL
 
-    leave
-    ret
 
-filePath			db ".\\test.txt", NULL ; "D:\\test.txt", NULL
-title					db 'Hossain', NULL
-title.len			EQU $-title-1
-message				db 'Hello, World', CR, LF, 'How Are you?', CR, LF, NULL
-message.len		EQU $-message-1
+showAbout:
+	putstr MSG_ABOUT
+	getch
+	ret
+	MSG_ABOUT:
+		DB "Created by Hossain Khademian 2020", LF
+		DB "Press any key to return", LF
+		DB NULL
+
+_start:
+	enter 0,0
+	.menu:
+		call showMenu
+		getchar
+		putln
+		sub al, '0'
+		jb .menu
+		je .menu_end
+		cmp al, 4
+		jg .menu
+		mov ebx, [ MENU_JMP + eax*4 ]
+		cls
+		call ebx
+		jmp .menu
+		.menu_end:
+
+	cls
+	putcstr "GoodBye!"
+	putln
+
+	leave
+	ret
+	MENU_JMP DD 0, playFile, playFree, showHelp, showAbout
