@@ -1,21 +1,14 @@
-%include "lib.asm"
-
 %ifndef UTIL_ASM
 %define UTIL_ASM
-
-NULL	EQU 0
-CR		EQU 0DH
-LF		EQU 0AH
-TAB		EQU '	'
-SPC		EQU ' '
-DOT		EQU '.'
+%include "lib.asm"
+%include "core.asm"
 
 ;;; defstr(lable, text)
 ;;; lable:			DB text
 ;;; lable_len:	EQU $-lable
 %macro defstr 2
 	jmp %%_skip
-	%1			db	%2
+	%1			DB  %2
 	%1_len	EQU $-%1
 	%%_skip:
 %endmacro
@@ -26,8 +19,8 @@ DOT		EQU '.'
 	; mov DWORD [ESP-8], DWORD %1			; buffer
 	; sub ESP, 8											; allocate space
 	;; call write(buffer, size)
-	push DWORD %2			; size
-	push DWORD %1			; buffer
+	push DWORD %2 ; size
+	push DWORD %1 ; buffer
 	call write
 %endmacro
 
