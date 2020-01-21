@@ -31,7 +31,7 @@ playFile:
 	ret
 
 playFree:
-	call pianoKeyboard
+	call piano_keyboard
 	ret
 
 showHelp:
